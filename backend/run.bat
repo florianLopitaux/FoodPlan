@@ -1,7 +1,7 @@
 @echo off
 
 echo Building Spring Boot application...
-mvn clean package -DskipTests
+call mvn clean package -DskipTests
 
 if %errorlevel% neq 0 (
     echo Build failed
@@ -11,4 +11,5 @@ if %errorlevel% neq 0 (
 echo Build successful
 
 echo Starting backend containers...
-docker compose up --build
+call docker compose up -d --build
+echo Backend containers successfully started
