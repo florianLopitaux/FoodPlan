@@ -1,0 +1,33 @@
+# ========================== #
+### BACKEND (Spring Boot)  ###
+# ========================== #
+
+backend/HELP.md
+backend/target/
+backend/.env
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/!**/src/main/**/target/
+backend/!**/src/test/**/target/
+
+# IntelliJ IDEA
+backend/.idea
+backend/*.iws
+backend/*.iml
+backend/*.ipr
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+
+# ============================ #
+###    FRONTEND (Angular)    ###
+# ============================ #
+
+### VS Code ###
+.vscode/
