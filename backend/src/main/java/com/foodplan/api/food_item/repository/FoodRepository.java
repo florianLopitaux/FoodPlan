@@ -1,6 +1,6 @@
-package com.foodplan.api.food.repository;
+package com.foodplan.api.food_item.repository;
 
-import com.foodplan.api.food.model.FoodItemEntity;
+import com.foodplan.api.food_item.model.FoodItemEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
