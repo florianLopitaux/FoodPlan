@@ -1,4 +1,4 @@
-package com.foodplan.api.food.model;
+package com.foodplan.api.food_item.model;
 
 import jakarta.persistence.*;
 
