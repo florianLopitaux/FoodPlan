@@ -6,4 +6,8 @@ public class FoodItemAlreadyExistsException extends RuntimeException {
         super("FoodItem already exists with this given id: " + foodItemId);
     }
 
+    public FoodItemAlreadyExistsException(String foodItemName) {
+        super("FoodItem already exists with this given name: " + foodItemName);
+    }
+
 }
