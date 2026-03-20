@@ -1,9 +1,12 @@
 package com.foodplan.api.food_item.service;
 
+import com.foodplan.api.food_item.dto.FoodItemCreateDTO;
 import com.foodplan.api.food_item.exception.FoodItemAlreadyExistsException;
 import com.foodplan.api.food_item.exception.FoodItemNotFoundException;
+import com.foodplan.api.food_item.mapper.FoodItemMapper;
 import com.foodplan.api.food_item.model.FoodItemEntity;
 import com.foodplan.api.food_item.repository.FoodRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -47,9 +50,17 @@ public class FoodService {
         }
     }
 
+    public FoodItemEntity createFoodItem(FoodItemCreateDTO foodItemCreateDTO) throws FoodItemAlreadyExistsException {
+        final FoodItemEntity foodItemEntity = FoodItemMapper.toEntity(foodItemCreateDTO);
+        return this.createFoodItem(foodItemEntity);
+    }
+
     public FoodItemEntity createFoodItem(FoodItemEntity foodItemEntity) throws FoodItemAlreadyExistsException {
-        if (this.foodRepository.existsById(foodItemEntity.getId())) {
+        if (foodItemEntity != null && this.foodRepository.existsById(foodItemEntity.getId())) {
             throw new FoodItemAlreadyExistsException(foodItemEntity.getId());
+
+        } else if (this.foodRepository.findByName(foodItemEntity.getName()).isPresent()) {
+            throw new FoodItemAlreadyExistsException(foodItemEntity.getName());
         }
 
         return this.foodRepository.save(foodItemEntity);
