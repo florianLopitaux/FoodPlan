@@ -4,6 +4,10 @@ import com.foodplan.api.food_item.dto.FoodItemCreateDTO;
 import com.foodplan.api.food_item.dto.FoodItemOutputDTO;
 import com.foodplan.api.food_item.model.FoodItemEntity;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 public class FoodItemMapper {
 
     public static FoodItemEntity toEntity(FoodItemCreateDTO dto) {
@@ -18,10 +22,20 @@ public class FoodItemMapper {
         return entity;
     }
 
-    public FoodItemOutputDTO toOutputDTO(FoodItemEntity foodItemEntity) {
+    public static FoodItemOutputDTO toOutputDTO(FoodItemEntity foodItemEntity) {
         return new FoodItemOutputDTO(
                 foodItemEntity.getName(),
                 foodItemEntity.getImageSource()
         );
+    }
+
+    public static Set<FoodItemOutputDTO> toOutputDTOs(Collection<FoodItemEntity> foodItemEntities) {
+        final Set<FoodItemOutputDTO> dtos = new HashSet<>();
+
+        for (final FoodItemEntity currentEntity : foodItemEntities) {
+            dtos.add(FoodItemMapper.toOutputDTO(currentEntity));
+        }
+
+        return dtos;
     }
 }
