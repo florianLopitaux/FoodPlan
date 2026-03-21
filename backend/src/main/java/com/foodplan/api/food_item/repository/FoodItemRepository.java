@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
-public interface FoodRepository extends JpaRepository<FoodItemEntity, Long> {
+public interface FoodItemRepository extends JpaRepository<FoodItemEntity, Long> {
+
+    Set<FoodItemEntity> findByNameContainingIgnoreCase(String name);
 
     Optional<FoodItemEntity> findByName(String name);
 

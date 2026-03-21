@@ -5,7 +5,7 @@ import com.foodplan.api.food_item.exception.FoodItemAlreadyExistsException;
 import com.foodplan.api.food_item.exception.FoodItemNotFoundException;
 import com.foodplan.api.food_item.mapper.FoodItemMapper;
 import com.foodplan.api.food_item.model.FoodItemEntity;
-import com.foodplan.api.food_item.repository.FoodRepository;
+import com.foodplan.api.food_item.repository.FoodItemRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -14,13 +14,13 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class FoodService {
+public class FoodItemService {
     // FIELDS
-    private final FoodRepository foodRepository;
+    private final FoodItemRepository foodRepository;
 
 
     // CONSTRUCTOR
-    public FoodService(FoodRepository foodRepository) {
+    public FoodItemService(FoodItemRepository foodRepository) {
         this.foodRepository = foodRepository;
     }
 
@@ -28,6 +28,10 @@ public class FoodService {
     // SERVICE METHODS
     public Set<FoodItemEntity> getAllFoodItems() {
         return new HashSet<>(this.foodRepository.findAll());
+    }
+
+    public Set<FoodItemEntity> getFoodItemsByFilteredName(String nameFilter) {
+        return this.foodRepository.findByNameContainingIgnoreCase(nameFilter);
     }
 
     public FoodItemEntity getFoodItem(Long id) throws FoodItemNotFoundException {
@@ -64,13 +68,6 @@ public class FoodService {
         }
 
         return this.foodRepository.save(foodItemEntity);
-    }
-
-    public FoodItemEntity createFoodItem(String name) throws FoodItemAlreadyExistsException {
-        final FoodItemEntity entity = new FoodItemEntity();
-        entity.setName(name);
-
-        return this.createFoodItem(entity);
     }
 
     public void deleteFoodItem(Long id) throws FoodItemNotFoundException {
