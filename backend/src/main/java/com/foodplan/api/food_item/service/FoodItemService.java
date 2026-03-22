@@ -60,9 +60,12 @@ public class FoodItemService {
     }
 
     public FoodItemEntity createFoodItem(FoodItemEntity foodItemEntity) throws FoodItemAlreadyExistsException {
-        if (foodItemEntity != null && this.foodRepository.existsById(foodItemEntity.getId())) {
-            throw new FoodItemAlreadyExistsException(foodItemEntity.getId());
+        if (foodItemEntity == null) {
+            throw new IllegalArgumentException("FoodItemEntity parameter cannot be null");
+        }
 
+        if (this.foodRepository.existsById(foodItemEntity.getId())) {
+            throw new FoodItemAlreadyExistsException(foodItemEntity.getId());
         } else if (this.foodRepository.findByName(foodItemEntity.getName()).isPresent()) {
             throw new FoodItemAlreadyExistsException(foodItemEntity.getName());
         }
