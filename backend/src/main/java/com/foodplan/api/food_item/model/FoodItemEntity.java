@@ -2,6 +2,8 @@ package com.foodplan.api.food_item.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "food_item")
 public class FoodItemEntity {
@@ -70,11 +72,11 @@ public class FoodItemEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof FoodItemEntity that)) return false;
-        return this.id != null && id.equals(that.id);
+        return this.id != null && this.id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return this.getClass().hashCode();
+        return Objects.hash(this.id);
     }
 }
