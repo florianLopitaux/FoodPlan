@@ -1,5 +1,6 @@
 package com.foodplan.api.dish.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,20 +11,24 @@ import java.util.Objects;
 @Table(name = "dish")
 public class DishEntity {
     // FIELDS
+    public static final int NAME_MAX_LENGTH = 100;
+    public static final int DESCRIPTION_MAX_LENGTH = 255;
     public static final byte DEFAULT_MIN_AMOUNT_PER_WEEK = 1;
     public static final byte DEFAULT_MAX_AMOUNT_PER_WEEK = 4;
 
 
     @Id
+    @Column(length = DishEntity.NAME_MAX_LENGTH)
     private String name;
 
+    @Column(length = DishEntity.DESCRIPTION_MAX_LENGTH)
     private String description;
-
-    private String imageSource;
 
     private Byte minimum;
 
     private Byte maximum;
+
+    private String imageSource;
 
 
     // CONSTRUCTORS
@@ -32,9 +37,15 @@ public class DishEntity {
         this.maximum = DishEntity.DEFAULT_MAX_AMOUNT_PER_WEEK;
     }
 
-    public DishEntity(String name, String description, String imageSource, Byte minimum, Byte maximum) {
+    public DishEntity(String name, String description, Byte minimum, Byte maximum, String imageSource) {
         this();
-        this.name = name;
+
+        if (name != null && name.length() <= DishEntity.NAME_MAX_LENGTH) {
+            this.name = name;
+        } else {
+            throw  new IllegalArgumentException("name is null or has too many characters, maximum = " + DishEntity.NAME_MAX_LENGTH);
+        }
+
         this.description = description;
         this.imageSource = imageSource;
 
@@ -58,15 +69,11 @@ public class DishEntity {
     }
 
     public void setDescription(String description) {
+        if (description != null && description.length() > DishEntity.DESCRIPTION_MAX_LENGTH) {
+            return;
+        }
+
         this.description = description;
-    }
-
-    public String getImageSource() {
-        return this.imageSource;
-    }
-
-    public void setImageSource(String imageSource) {
-        this.imageSource = imageSource;
     }
 
     public Byte getMinimumPerWeek() {
@@ -85,6 +92,14 @@ public class DishEntity {
         this.maximum = maximum;
     }
 
+    public String getImageSource() {
+        return this.imageSource;
+    }
+
+    public void setImageSource(String imageSource) {
+        this.imageSource = imageSource;
+    }
+
 
     // OVERRIDE METHODS FROM Object CLASS
     @Override
@@ -95,6 +110,7 @@ public class DishEntity {
             .append(", description='").append(this.description).append('\'')
             .append(", minimum=").append(this.minimum)
             .append(", maximum=").append(this.maximum)
+            .append(", imageSource='").append(this.imageSource).append('\'')
             .append('}');
 
         return builder.toString();

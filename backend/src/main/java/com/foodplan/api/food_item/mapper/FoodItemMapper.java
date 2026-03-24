@@ -24,7 +24,9 @@ public class FoodItemMapper {
 
     public static FoodItemOutputDTO toOutputDTO(FoodItemEntity foodItemEntity) {
         return new FoodItemOutputDTO(
+                foodItemEntity.getId(),
                 foodItemEntity.getName(),
+                foodItemEntity.getDescription(),
                 foodItemEntity.getImageSource()
         );
     }

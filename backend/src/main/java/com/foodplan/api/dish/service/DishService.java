@@ -1,7 +1,9 @@
 package com.foodplan.api.dish.service;
 
+import com.foodplan.api.dish.dto.DishCreateDTO;
 import com.foodplan.api.dish.exception.DishAlreadyExistsException;
 import com.foodplan.api.dish.exception.DishNotFoundException;
+import com.foodplan.api.dish.mapper.DishMapper;
 import com.foodplan.api.dish.model.DishEntity;
 import com.foodplan.api.dish.repository.DishRepository;
 
@@ -40,6 +42,10 @@ public class DishService {
         } else {
             throw new DishNotFoundException(name);
         }
+    }
+
+    public DishEntity createDish(DishCreateDTO dishCreateDTO) {
+        return this.createDish(DishMapper.toEntity(dishCreateDTO));
     }
 
     public DishEntity createDish(DishEntity dish) throws DishAlreadyExistsException {

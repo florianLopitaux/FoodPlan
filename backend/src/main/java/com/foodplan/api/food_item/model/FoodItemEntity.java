@@ -20,6 +20,8 @@ public class FoodItemEntity {
     private String name;
 
     @Column(length = FoodItemEntity.DESCRIPTION_MAX_LENGTH)
+    private String description;
+
     private String imageSource;
 
 
@@ -29,6 +31,7 @@ public class FoodItemEntity {
     public FoodItemEntity(Long id, String name,  String imageSource) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.imageSource = imageSource;
     }
 
@@ -43,7 +46,21 @@ public class FoodItemEntity {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null && name.length() <= FoodItemEntity.NAME_MAX_LENGTH) {
+            this.name = name;
+        }
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        if (description != null && description.length() > FoodItemEntity.DESCRIPTION_MAX_LENGTH) {
+            return;
+        }
+
+        this.description = description;
     }
 
     public String getImageSource() {
@@ -62,6 +79,7 @@ public class FoodItemEntity {
 
         builder.append("id=").append(this.id)
             .append(", name='").append(this.name).append('\'')
+            .append(", description='").append(this.description).append('\'')
             .append(", imageSource='").append(this.imageSource).append('\'')
             .append('}');
 

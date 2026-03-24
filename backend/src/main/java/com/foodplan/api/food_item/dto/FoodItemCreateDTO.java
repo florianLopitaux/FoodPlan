@@ -11,7 +11,9 @@ public record FoodItemCreateDTO(
         @Size(max = FoodItemEntity.NAME_MAX_LENGTH, message = "The FoodItem's name must not exceed {max} characters, given value : {validatedValue}")
         String name,
 
-        @Size(max = FoodItemEntity.DESCRIPTION_MAX_LENGTH, message = "The image url must not exceed {max} characters, given value : {validatedValue}")
+        @Size(max = FoodItemEntity.DESCRIPTION_MAX_LENGTH, message = "The description must not exceed {max} characters, given value : {validatedValue}")
+        String description,
+
         String imageSource
 
 ) {
