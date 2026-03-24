@@ -26,7 +26,7 @@ public class FoodItemController {
     }
 
 
-    // ENDPOINTS GET METHODS
+    // ENDPOINTS GET REQUESTS
     @GetMapping
     public Set<FoodItemOutputDTO> getAllFoodItems(@RequestParam(required = false) String nameFilter) {
         final Set<FoodItemEntity> entities;
@@ -40,9 +40,9 @@ public class FoodItemController {
         return FoodItemMapper.toOutputDTOs(entities);
     }
 
-    @GetMapping("/{id_food_item}")
-    public FoodItemOutputDTO getFoodItemById(@PathVariable Long id_food_item) throws FoodItemNotFoundException {
-        return FoodItemMapper.toOutputDTO(this.foodService.getFoodItem(id_food_item));
+    @GetMapping("/{idFoodItem}")
+    public FoodItemOutputDTO getFoodItemById(@PathVariable Long idFoodItem) throws FoodItemNotFoundException {
+        return FoodItemMapper.toOutputDTO(this.foodService.getFoodItem(idFoodItem));
     }
 
     @GetMapping
@@ -51,7 +51,7 @@ public class FoodItemController {
     }
 
 
-    // ENDPOINTS POST METHODS
+    // ENDPOINTS POST REQUESTS
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public FoodItemOutputDTO createFoodItem(@RequestBody FoodItemCreateDTO dto) throws FoodItemAlreadyExistsException {
@@ -59,10 +59,10 @@ public class FoodItemController {
     }
 
 
-    // ENDPOINTS DELETE METHODS
-    @DeleteMapping("/{id_food_item}")
+    // ENDPOINTS DELETE REQUESTS
+    @DeleteMapping("/{idFoodItem}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFoodItem(@PathVariable Long id_food_item) throws FoodItemNotFoundException {
-        this.foodService.deleteFoodItem(id_food_item);
+    public void deleteFoodItem(@PathVariable Long idFoodItem) throws FoodItemNotFoundException {
+        this.foodService.deleteFoodItem(idFoodItem);
     }
 }

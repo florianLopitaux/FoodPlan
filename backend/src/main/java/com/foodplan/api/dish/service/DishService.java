@@ -44,7 +44,7 @@ public class DishService {
         }
     }
 
-    public DishEntity createDish(DishCreateDTO dishCreateDTO) {
+    public DishEntity createDish(DishCreateDTO dishCreateDTO) throws DishAlreadyExistsException {
         return this.createDish(DishMapper.toEntity(dishCreateDTO));
     }
 
