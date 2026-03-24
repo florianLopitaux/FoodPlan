@@ -78,10 +78,10 @@ public class FoodItemEntity {
         final StringBuilder builder = new StringBuilder("FoodEntity{");
 
         builder.append("id=").append(this.id)
-            .append(", name='").append(this.name).append('\'')
-            .append(", description='").append(this.description).append('\'')
-            .append(", imageSource='").append(this.imageSource).append('\'')
-            .append('}');
+                .append(", name='").append(this.name).append('\'')
+                .append(", description='").append(this.description).append('\'')
+                .append(", imageSource='").append(this.imageSource).append('\'')
+                .append('}');
 
         return builder.toString();
     }

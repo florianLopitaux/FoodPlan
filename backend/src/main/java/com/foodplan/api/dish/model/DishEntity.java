@@ -107,11 +107,11 @@ public class DishEntity {
         final StringBuilder builder = new StringBuilder("DishEntity{");
 
         builder.append("name='").append(this.name).append('\'')
-            .append(", description='").append(this.description).append('\'')
-            .append(", minimum=").append(this.minimum)
-            .append(", maximum=").append(this.maximum)
-            .append(", imageSource='").append(this.imageSource).append('\'')
-            .append('}');
+                .append(", description='").append(this.description).append('\'')
+                .append(", minimum=").append(this.minimum)
+                .append(", maximum=").append(this.maximum)
+                .append(", imageSource='").append(this.imageSource).append('\'')
+                .append('}');
 
         return builder.toString();
     }
