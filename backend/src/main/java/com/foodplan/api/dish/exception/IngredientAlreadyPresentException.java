@@ -1,15 +1,15 @@
 package com.foodplan.api.dish.exception;
 
 import com.foodplan.api.dish.model.DishEntity;
-import com.foodplan.api.food_item.model.FoodItemEntity;
+import com.foodplan.api.ingredient.model.IngredientEntity;
 
-public class IngredientAlreadyPresentExection extends RuntimeException {
+public class IngredientAlreadyPresentException extends RuntimeException {
 
-    public IngredientAlreadyPresentExection(String dishName, String foodItemName) {
-        super("The dish '" + dishName + "' already has the ingredient '" + foodItemName + "' in its recipe.");
+    public IngredientAlreadyPresentException(String dishName, String ingredientName) {
+        super("The dish '" + dishName + "' already has the ingredient '" + ingredientName + "' in its recipe.");
     }
 
-    public IngredientAlreadyPresentExection(DishEntity dish, FoodItemEntity foodItem) {
-        this(dish.getName(), foodItem.getName());
+    public IngredientAlreadyPresentException(DishEntity dish, IngredientEntity ingredient) {
+        this(dish.getName(), ingredient.getName());
     }
 }

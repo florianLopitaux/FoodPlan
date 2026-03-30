@@ -1,41 +1,41 @@
-package com.foodplan.api.food_item.mapper;
+package com.foodplan.api.ingredient.mapper;
 
-import com.foodplan.api.food_item.dto.FoodItemCreateDTO;
-import com.foodplan.api.food_item.dto.FoodItemOutputDTO;
-import com.foodplan.api.food_item.model.FoodItemEntity;
+import com.foodplan.api.ingredient.dto.IngredientCreateDTO;
+import com.foodplan.api.ingredient.dto.IngredientOutputDTO;
+import com.foodplan.api.ingredient.model.IngredientEntity;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FoodItemMapper {
+public class IngredientMapper {
 
-    public static FoodItemEntity toEntity(FoodItemCreateDTO dto) {
+    public static IngredientEntity toEntity(IngredientCreateDTO dto) {
         if (dto == null) {
             return null;
         }
 
-        final FoodItemEntity entity = new FoodItemEntity();
+        final IngredientEntity entity = new IngredientEntity();
         entity.setName(dto.name());
         entity.setImageSource(dto.imageSource());
 
         return entity;
     }
 
-    public static FoodItemOutputDTO toOutputDTO(FoodItemEntity foodItemEntity) {
-        return new FoodItemOutputDTO(
-                foodItemEntity.getId(),
-                foodItemEntity.getName(),
-                foodItemEntity.getDescription(),
-                foodItemEntity.getImageSource()
+    public static IngredientOutputDTO toOutputDTO(IngredientEntity ingredientEntity) {
+        return new IngredientOutputDTO(
+                ingredientEntity.getId(),
+                ingredientEntity.getName(),
+                ingredientEntity.getDescription(),
+                ingredientEntity.getImageSource()
         );
     }
 
-    public static Set<FoodItemOutputDTO> toOutputDTOs(Collection<FoodItemEntity> foodItemEntities) {
-        final Set<FoodItemOutputDTO> dtos = new HashSet<>();
+    public static Set<IngredientOutputDTO> toOutputDTOs(Collection<IngredientEntity> ingredientEntities) {
+        final Set<IngredientOutputDTO> dtos = new HashSet<>();
 
-        for (final FoodItemEntity currentEntity : foodItemEntities) {
-            dtos.add(FoodItemMapper.toOutputDTO(currentEntity));
+        for (final IngredientEntity currentEntity : ingredientEntities) {
+            dtos.add(IngredientMapper.toOutputDTO(currentEntity));
         }
 
         return dtos;

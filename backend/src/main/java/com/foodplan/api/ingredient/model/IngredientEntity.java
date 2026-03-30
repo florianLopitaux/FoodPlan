@@ -1,4 +1,4 @@
-package com.foodplan.api.food_item.model;
+package com.foodplan.api.ingredient.model;
 
 import com.foodplan.api.dish.model.RecipeEntity;
 
@@ -9,8 +9,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "food_item")
-public class FoodItemEntity {
+@Table(name = "ingredient")
+public class IngredientEntity {
     // FIELDS
     public static final int NAME_MAX_LENGTH = 100;
     public static final int DESCRIPTION_MAX_LENGTH = 255;
@@ -20,24 +20,24 @@ public class FoodItemEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = FoodItemEntity.NAME_MAX_LENGTH, nullable = false, unique = true)
+    @Column(length = IngredientEntity.NAME_MAX_LENGTH, nullable = false, unique = true)
     private String name;
 
-    @Column(length = FoodItemEntity.DESCRIPTION_MAX_LENGTH)
+    @Column(length = IngredientEntity.DESCRIPTION_MAX_LENGTH)
     private String description;
 
     private String imageSource;
 
-    @OneToMany(mappedBy = "foodItem")
+    @OneToMany(mappedBy = "ingredient")
     private final Set<RecipeEntity> recipes;
 
 
     // CONSTRUCTORS
-    public FoodItemEntity() {
+    public IngredientEntity() {
         this.recipes = new HashSet<>();
     }
 
-    public FoodItemEntity(Long id, String name,  String imageSource) {
+    public IngredientEntity(Long id, String name, String description, String imageSource) {
         this();
         this.id = id;
         this.name = name;
@@ -56,7 +56,7 @@ public class FoodItemEntity {
     }
 
     public void setName(String name) {
-        if (name != null && name.length() <= FoodItemEntity.NAME_MAX_LENGTH) {
+        if (name != null && name.length() <= IngredientEntity.NAME_MAX_LENGTH) {
             this.name = name;
         }
     }
@@ -66,7 +66,7 @@ public class FoodItemEntity {
     }
 
     public void setDescription(String description) {
-        if (description != null && description.length() > FoodItemEntity.DESCRIPTION_MAX_LENGTH) {
+        if (description != null && description.length() > IngredientEntity.DESCRIPTION_MAX_LENGTH) {
             return;
         }
 
@@ -89,7 +89,7 @@ public class FoodItemEntity {
     // OVERRIDE METHODS FROM Object CLASS
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder("FoodEntity{");
+        final StringBuilder builder = new StringBuilder("IngredientEntity{");
 
         builder.append("id=").append(this.id)
                 .append(", name='").append(this.name).append('\'')
@@ -104,7 +104,7 @@ public class FoodItemEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FoodItemEntity that)) return false;
+        if (!(o instanceof IngredientEntity that)) return false;
         return this.id != null && this.id.equals(that.id);
     }
 

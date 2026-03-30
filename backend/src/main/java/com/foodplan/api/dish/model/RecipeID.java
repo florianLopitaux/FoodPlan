@@ -12,15 +12,15 @@ public class RecipeID {
     private String dishName;
 
     @Column(nullable = false)
-    private Long idFoodItem;
+    private Long ingredientId;
 
 
     // CONSTRUCTORS
     public RecipeID() {}
 
-    public RecipeID(String dishName, Long idFoodItem) {
+    public RecipeID(String dishName, Long ingredientId) {
         this.dishName = dishName;
-        this.idFoodItem = idFoodItem;
+        this.ingredientId = ingredientId;
     }
 
 
@@ -33,12 +33,12 @@ public class RecipeID {
         this.dishName = dishName;
     }
 
-    public Long getFoodItemID() {
-        return this.idFoodItem;
+    public Long getIngredientId() {
+        return this.ingredientId;
     }
 
-    public void setFoodItemID(Long idFoodItem) {
-        this.idFoodItem = idFoodItem;
+    public void setIngredientId(Long ingredientId) {
+        this.ingredientId = ingredientId;
     }
 
 
@@ -48,7 +48,7 @@ public class RecipeID {
         final StringBuilder builder = new StringBuilder("RecipeID{");
 
         builder.append("dishName='").append(this.dishName).append('\'')
-                .append(", idFoodItem='").append(this.idFoodItem).append('\'')
+                .append(", ingredientId=").append(this.ingredientId)
                 .append('}');
 
         return builder.toString();
@@ -58,11 +58,11 @@ public class RecipeID {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof RecipeID that)) return false;
-        return Objects.equals(this.dishName, that.dishName) && Objects.equals(this.idFoodItem, that.idFoodItem);
+        return Objects.equals(this.dishName, that.dishName) && Objects.equals(this.ingredientId, that.ingredientId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.dishName, this.idFoodItem);
+        return Objects.hash(this.dishName, this.ingredientId);
     }
 }

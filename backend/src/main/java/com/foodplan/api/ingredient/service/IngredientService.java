@@ -1,11 +1,11 @@
-package com.foodplan.api.food_item.service;
+package com.foodplan.api.ingredient.service;
 
-import com.foodplan.api.food_item.dto.FoodItemCreateDTO;
-import com.foodplan.api.food_item.exception.FoodItemAlreadyExistsException;
-import com.foodplan.api.food_item.exception.FoodItemNotFoundException;
-import com.foodplan.api.food_item.mapper.FoodItemMapper;
-import com.foodplan.api.food_item.model.FoodItemEntity;
-import com.foodplan.api.food_item.repository.FoodItemRepository;
+import com.foodplan.api.ingredient.dto.IngredientCreateDTO;
+import com.foodplan.api.ingredient.exception.IngredientAlreadyExistsException;
+import com.foodplan.api.ingredient.exception.IngredientNotFoundException;
+import com.foodplan.api.ingredient.mapper.IngredientMapper;
+import com.foodplan.api.ingredient.model.IngredientEntity;
+import com.foodplan.api.ingredient.repository.IngredientRepository;
 
 import org.springframework.stereotype.Service;
 
@@ -14,70 +14,70 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class FoodItemService {
+public class IngredientService {
     // FIELDS
-    private final FoodItemRepository foodRepository;
+    private final IngredientRepository ingredientRepository;
 
 
     // CONSTRUCTOR
-    public FoodItemService(FoodItemRepository foodRepository) {
-        this.foodRepository = foodRepository;
+    public IngredientService(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
     }
 
 
     // SERVICE METHODS
-    public Set<FoodItemEntity> getAllFoodItems() {
-        return new HashSet<>(this.foodRepository.findAll());
+    public Set<IngredientEntity> getAllIngredients() {
+        return new HashSet<>(this.ingredientRepository.findAll());
     }
 
-    public Set<FoodItemEntity> getFoodItemsByFilteredName(String nameFilter) {
-        return this.foodRepository.findByNameContainingIgnoreCase(nameFilter);
+    public Set<IngredientEntity> getIngredientsByFilteredName(String nameFilter) {
+        return this.ingredientRepository.findByNameContainingIgnoreCase(nameFilter);
     }
 
-    public FoodItemEntity getFoodItem(Long id) throws FoodItemNotFoundException {
-        final Optional<FoodItemEntity> foundEntity = this.foodRepository.findById(id);
+    public IngredientEntity getIngredient(Long id) throws IngredientNotFoundException {
+        final Optional<IngredientEntity> foundEntity = this.ingredientRepository.findById(id);
 
         if (foundEntity.isPresent()) {
             return foundEntity.get();
         } else {
-            throw new FoodItemNotFoundException(id);
+            throw new IngredientNotFoundException(id);
         }
     }
 
-    public FoodItemEntity getFoodItem(String name) throws FoodItemNotFoundException {
-        final Optional<FoodItemEntity> foundEntity = this.foodRepository.findByName(name);
+    public IngredientEntity getIngredient(String name) throws IngredientNotFoundException {
+        final Optional<IngredientEntity> foundEntity = this.ingredientRepository.findByName(name);
 
         if (foundEntity.isPresent()) {
             return foundEntity.get();
         } else {
-            throw new FoodItemNotFoundException(name);
+            throw new IngredientNotFoundException(name);
         }
     }
 
-    public FoodItemEntity createFoodItem(FoodItemCreateDTO foodItemCreateDTO) throws FoodItemAlreadyExistsException {
-        final FoodItemEntity foodItemEntity = FoodItemMapper.toEntity(foodItemCreateDTO);
-        return this.createFoodItem(foodItemEntity);
+    public IngredientEntity createIngredient(IngredientCreateDTO ingredientCreateDTO) throws IngredientAlreadyExistsException {
+        final IngredientEntity ingredientEntity = IngredientMapper.toEntity(ingredientCreateDTO);
+        return this.createIngredient(ingredientEntity);
     }
 
-    public FoodItemEntity createFoodItem(FoodItemEntity foodItemEntity) throws FoodItemAlreadyExistsException {
-        if (foodItemEntity == null) {
-            throw new IllegalArgumentException("FoodItemEntity parameter cannot be null");
+    public IngredientEntity createIngredient(IngredientEntity ingredientEntity) throws IngredientAlreadyExistsException {
+        if (ingredientEntity == null) {
+            throw new IllegalArgumentException("IngredientEntity parameter cannot be null");
         }
 
-        if (this.foodRepository.existsById(foodItemEntity.getId())) {
-            throw new FoodItemAlreadyExistsException(foodItemEntity.getId());
-        } else if (this.foodRepository.findByName(foodItemEntity.getName()).isPresent()) {
-            throw new FoodItemAlreadyExistsException(foodItemEntity.getName());
+        if (this.ingredientRepository.existsById(ingredientEntity.getId())) {
+            throw new IngredientAlreadyExistsException(ingredientEntity.getId());
+        } else if (this.ingredientRepository.findByName(ingredientEntity.getName()).isPresent()) {
+            throw new IngredientAlreadyExistsException(ingredientEntity.getName());
         }
 
-        return this.foodRepository.save(foodItemEntity);
+        return this.ingredientRepository.save(ingredientEntity);
     }
 
-    public void deleteFoodItem(Long id) throws FoodItemNotFoundException {
-        if (!this.foodRepository.existsById(id)) {
-            throw new FoodItemNotFoundException(id);
+    public void deleteIngredient(Long id) throws IngredientNotFoundException {
+        if (!this.ingredientRepository.existsById(id)) {
+            throw new IngredientNotFoundException(id);
         }
 
-        this.foodRepository.deleteById(id);
+        this.ingredientRepository.deleteById(id);
     }
 }

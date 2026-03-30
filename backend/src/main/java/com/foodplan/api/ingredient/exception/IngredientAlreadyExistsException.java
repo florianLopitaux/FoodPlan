@@ -1,13 +1,13 @@
-package com.foodplan.api.food_item.exception;
+package com.foodplan.api.ingredient.exception;
 
-public class FoodItemAlreadyExistsException extends RuntimeException {
+public class IngredientAlreadyExistsException extends RuntimeException {
 
-    public FoodItemAlreadyExistsException(Long foodItemId) {
-        super("FoodItem already exists with this given id: " + foodItemId);
+    public IngredientAlreadyExistsException(Long ingredientId) {
+        super("Ingredient already exists with this given id: " + ingredientId);
     }
 
-    public FoodItemAlreadyExistsException(String foodItemName) {
-        super("FoodItem already exists with this given name: " + foodItemName);
+    public IngredientAlreadyExistsException(String ingredientName) {
+        super("Ingredient already exists with this given name: " + ingredientName);
     }
 
 }
