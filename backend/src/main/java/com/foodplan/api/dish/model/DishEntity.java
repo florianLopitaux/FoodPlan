@@ -1,7 +1,7 @@
 package com.foodplan.api.dish.model;
 
-import com.foodplan.api.dish.exception.IngredientAlreadyPresentExection;
-import com.foodplan.api.food_item.model.FoodItemEntity;
+import com.foodplan.api.dish.exception.IngredientAlreadyPresentException;
+import com.foodplan.api.ingredient.model.IngredientEntity;
 
 import jakarta.persistence.*;
 
@@ -111,11 +111,11 @@ public class DishEntity {
         return Collections.unmodifiableSet(this.recipes);
     }
 
-    public RecipeEntity addIngredient(FoodItemEntity foodItem, int quantity, RecipeUnit unit) throws IngredientAlreadyPresentExection {
-        final RecipeEntity recipe = new RecipeEntity(this, foodItem, quantity, unit);
+    public RecipeEntity addIngredient(IngredientEntity ingredient, int quantity, RecipeUnit unit) throws IngredientAlreadyPresentException {
+        final RecipeEntity recipe = new RecipeEntity(this, ingredient, quantity, unit);
 
         if (!recipes.add(recipe)) {
-            throw new IngredientAlreadyPresentExection(this, foodItem);
+            throw new IngredientAlreadyPresentException(this, ingredient);
         }
 
         return recipe;

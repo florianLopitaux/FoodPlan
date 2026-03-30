@@ -1,6 +1,6 @@
-package com.foodplan.api.food_item.dto;
+package com.foodplan.api.ingredient.dto;
 
-public record FoodItemOutputDTO(
+public record IngredientOutputDTO(
 
         Long id,
 

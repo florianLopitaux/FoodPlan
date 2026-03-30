@@ -1,13 +1,13 @@
-package com.foodplan.api.food_item.exception;
+package com.foodplan.api.ingredient.exception;
 
-public class FoodItemNotFoundException extends RuntimeException {
+public class IngredientNotFoundException extends RuntimeException {
 
-    public FoodItemNotFoundException(Long foodItemId) {
-        super("FoodItem doesn't find with this given id : " + foodItemId);
+    public IngredientNotFoundException(Long ingredientId) {
+        super("Ingredient doesn't find with this given id : " + ingredientId);
     }
 
-    public FoodItemNotFoundException(String foodItemName) {
-        super("FoodItem doesn't find with this given name : " + foodItemName);
+    public IngredientNotFoundException(String ingredientName) {
+        super("Ingredient doesn't find with this given name : " + ingredientName);
     }
 
 }

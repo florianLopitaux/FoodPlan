@@ -1,6 +1,6 @@
 package com.foodplan.api.dish.model;
 
-import com.foodplan.api.food_item.model.FoodItemEntity;
+import com.foodplan.api.ingredient.model.IngredientEntity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -18,9 +18,9 @@ public class RecipeEntity {
     private DishEntity dish;
 
     @ManyToOne
-    @MapsId("idFoodItem")
-    @JoinColumn(name = "id_food_item")
-    private FoodItemEntity foodItem;
+    @MapsId("ingredientId")
+    @JoinColumn(name = "ingredient_id")
+    private IngredientEntity ingredient;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -33,10 +33,10 @@ public class RecipeEntity {
         this.recipeID = new RecipeID();
     }
 
-    public RecipeEntity(DishEntity dish, FoodItemEntity foodItem, Integer quantity, RecipeUnit unit) {
-        this.recipeID = new RecipeID(dish.getName(), foodItem.getId());
+    public RecipeEntity(DishEntity dish, IngredientEntity ingredient, Integer quantity, RecipeUnit unit) {
+        this.recipeID = new RecipeID(dish.getName(), ingredient.getId());
         this.dish = dish;
-        this.foodItem = foodItem;
+        this.ingredient = ingredient;
         this.quantity = quantity;
         this.unit = unit;
     }
@@ -55,12 +55,12 @@ public class RecipeEntity {
         return this.recipeID.getDishName();
     }
 
-    public FoodItemEntity getFoodItem() {
-        return this.foodItem;
+    public IngredientEntity getIngredient() {
+        return this.ingredient;
     }
 
-    public Long getFoodItemID() {
-        return this.recipeID.getFoodItemID();
+    public Long getIngredientId() {
+        return this.recipeID.getIngredientId();
     }
 
     public Integer getQuantity() {
@@ -87,7 +87,7 @@ public class RecipeEntity {
 
         builder.append("recipeID=").append(this.recipeID)
                 .append(", dish=").append(this.dish)
-                .append(", foodItem=").append(this.foodItem)
+                .append(", ingredient=").append(this.ingredient)
                 .append(", quantity=").append(this.quantity)
                 .append(", unit=").append(this.unit)
                 .append("}");

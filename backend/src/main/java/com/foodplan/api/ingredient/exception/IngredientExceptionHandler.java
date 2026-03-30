@@ -1,4 +1,4 @@
-package com.foodplan.api.food_item.exception;
+package com.foodplan.api.ingredient.exception;
 
 import com.foodplan.api.exception.ApiError;
 import com.foodplan.api.exception.GlobalExceptionHandler;
@@ -9,11 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice(basePackages = "com.foodplan.api.food_item")
-public class FoodItemExceptionHandler extends GlobalExceptionHandler {
+@ControllerAdvice(basePackages = "com.foodplan.api.ingredient")
+public class IngredientExceptionHandler extends GlobalExceptionHandler {
 
-    @ExceptionHandler(FoodItemNotFoundException.class)
-    public ResponseEntity<ApiError> handleNotFound(FoodItemNotFoundException ex, HttpServletRequest request) {
+    @ExceptionHandler(IngredientNotFoundException.class)
+    public ResponseEntity<ApiError> handleNotFound(IngredientNotFoundException ex, HttpServletRequest request) {
         return GlobalExceptionHandler.buildError(
                 HttpStatus.NOT_FOUND,
                 request.getRequestURI(),
@@ -22,8 +22,8 @@ public class FoodItemExceptionHandler extends GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(FoodItemAlreadyExistsException.class)
-    public ResponseEntity<ApiError> handleAlreadyExists(FoodItemAlreadyExistsException ex, HttpServletRequest request) {
+    @ExceptionHandler(IngredientAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleAlreadyExists(IngredientAlreadyExistsException ex, HttpServletRequest request) {
         return GlobalExceptionHandler.buildError(
                 HttpStatus.BAD_REQUEST,
                 request.getRequestURI(),

@@ -1,6 +1,6 @@
-package com.foodplan.api.food_item.repository;
+package com.foodplan.api.ingredient.repository;
 
-import com.foodplan.api.food_item.model.FoodItemEntity;
+import com.foodplan.api.ingredient.model.IngredientEntity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,10 +9,10 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public interface FoodItemRepository extends JpaRepository<FoodItemEntity, Long> {
+public interface IngredientRepository extends JpaRepository<IngredientEntity, Long> {
 
-    Set<FoodItemEntity> findByNameContainingIgnoreCase(String name);
+    Set<IngredientEntity> findByNameContainingIgnoreCase(String name);
 
-    Optional<FoodItemEntity> findByName(String name);
+    Optional<IngredientEntity> findByName(String name);
 
 }
