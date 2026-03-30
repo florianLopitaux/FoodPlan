@@ -1,11 +1,14 @@
 package com.foodplan.api.dish.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.foodplan.api.dish.exception.IngredientAlreadyPresentExection;
+import com.foodplan.api.food_item.model.FoodItemEntity;
 
+import jakarta.persistence.*;
+
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "dish")
@@ -30,11 +33,15 @@ public class DishEntity {
 
     private String imageSource;
 
+    @OneToMany(mappedBy = "dish")
+    private final Set<RecipeEntity> recipes;
+
 
     // CONSTRUCTORS
     public DishEntity() {
         this.minimum = DishEntity.DEFAULT_MIN_AMOUNT_PER_WEEK;
         this.maximum = DishEntity.DEFAULT_MAX_AMOUNT_PER_WEEK;
+        this.recipes = new HashSet<>();
     }
 
     public DishEntity(String name, String description, Byte minimum, Byte maximum, String imageSource) {
@@ -100,6 +107,20 @@ public class DishEntity {
         this.imageSource = imageSource;
     }
 
+    public Set<RecipeEntity> getRecipes() {
+        return Collections.unmodifiableSet(this.recipes);
+    }
+
+    public RecipeEntity addIngredient(FoodItemEntity foodItem, int quantity, RecipeUnit unit) throws IngredientAlreadyPresentExection {
+        final RecipeEntity recipe = new RecipeEntity(this, foodItem, quantity, unit);
+
+        if (!recipes.add(recipe)) {
+            throw new IngredientAlreadyPresentExection(this, foodItem);
+        }
+
+        return recipe;
+    }
+
 
     // OVERRIDE METHODS FROM Object CLASS
     @Override
@@ -111,6 +132,7 @@ public class DishEntity {
                 .append(", minimum=").append(this.minimum)
                 .append(", maximum=").append(this.maximum)
                 .append(", imageSource='").append(this.imageSource).append('\'')
+                .append(", recipes=").append(this.recipes)
                 .append('}');
 
         return builder.toString();
