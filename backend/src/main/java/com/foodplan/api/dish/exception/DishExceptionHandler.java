@@ -31,4 +31,14 @@ public class DishExceptionHandler {
                 ex.getMessage()
         );
     }
+
+    @ExceptionHandler(IngredientAlreadyPresentExection.class)
+    public ResponseEntity<ApiError> handleAlreadyPresent(IngredientAlreadyPresentExection ex, HttpServletRequest request) {
+        return GlobalExceptionHandler.buildError(
+                HttpStatus.BAD_REQUEST,
+                request.getRequestURI(),
+                ex.getClass().getSimpleName(),
+                ex.getMessage()
+        );
+    }
 }

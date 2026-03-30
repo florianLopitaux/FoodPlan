@@ -1,9 +1,7 @@
 package com.foodplan.api.dish.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.foodplan.api.food_item.model.FoodItemEntity;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
@@ -14,6 +12,16 @@ public class RecipeEntity {
     @EmbeddedId
     private RecipeID recipeID;
 
+    @ManyToOne
+    @MapsId("dishName")
+    @JoinColumn(name = "dish_name")
+    private DishEntity dish;
+
+    @ManyToOne
+    @MapsId("idFoodItem")
+    @JoinColumn(name = "id_food_item")
+    private FoodItemEntity foodItem;
+
     @Column(nullable = false)
     private Integer quantity;
 
@@ -21,10 +29,14 @@ public class RecipeEntity {
 
 
     // CONSTRUCTORS
-    public RecipeEntity() {}
+    public RecipeEntity() {
+        this.recipeID = new RecipeID();
+    }
 
-    public RecipeEntity(RecipeID recipeID, Integer quantity, RecipeUnit unit) {
-        this.recipeID = recipeID;
+    public RecipeEntity(DishEntity dish, FoodItemEntity foodItem, Integer quantity, RecipeUnit unit) {
+        this.recipeID = new RecipeID(dish.getName(), foodItem.getId());
+        this.dish = dish;
+        this.foodItem = foodItem;
         this.quantity = quantity;
         this.unit = unit;
     }
@@ -35,24 +47,20 @@ public class RecipeEntity {
         return this.recipeID;
     }
 
-    public void setRecipeID(RecipeID recipeID) {
-        this.recipeID = recipeID;
+    public DishEntity getDish() {
+        return this.dish;
     }
 
     public String getDishName() {
         return this.recipeID.getDishName();
     }
 
-    public void setDishName(String dishName) {
-        this.recipeID.setDishName(dishName);
+    public FoodItemEntity getFoodItem() {
+        return this.foodItem;
     }
 
     public Long getFoodItemID() {
         return this.recipeID.getFoodItemID();
-    }
-
-    public void setFoodItemID(Long foodItemID) {
-        this.recipeID.setFoodItemID(foodItemID);
     }
 
     public Integer getQuantity() {
@@ -78,6 +86,8 @@ public class RecipeEntity {
         final StringBuffer builder = new StringBuffer("RecipeEntity{");
 
         builder.append("recipeID=").append(this.recipeID)
+                .append(", dish=").append(this.dish)
+                .append(", foodItem=").append(this.foodItem)
                 .append(", quantity=").append(this.quantity)
                 .append(", unit=").append(this.unit)
                 .append("}");

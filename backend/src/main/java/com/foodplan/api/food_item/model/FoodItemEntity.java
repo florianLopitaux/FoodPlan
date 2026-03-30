@@ -1,8 +1,12 @@
 package com.foodplan.api.food_item.model;
 
+import com.foodplan.api.dish.model.RecipeEntity;
+
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "food_item")
@@ -24,11 +28,17 @@ public class FoodItemEntity {
 
     private String imageSource;
 
+    @OneToMany(mappedBy = "foodItem")
+    private final Set<RecipeEntity> recipes;
+
 
     // CONSTRUCTORS
-    public FoodItemEntity() {}
+    public FoodItemEntity() {
+        this.recipes = new HashSet<>();
+    }
 
     public FoodItemEntity(Long id, String name,  String imageSource) {
+        this();
         this.id = id;
         this.name = name;
         this.description = description;
@@ -71,6 +81,10 @@ public class FoodItemEntity {
         this.imageSource = imageSource;
     }
 
+    public Set<RecipeEntity> getRecipes() {
+        return this.recipes;
+    }
+
 
     // OVERRIDE METHODS FROM Object CLASS
     @Override
@@ -81,6 +95,7 @@ public class FoodItemEntity {
                 .append(", name='").append(this.name).append('\'')
                 .append(", description='").append(this.description).append('\'')
                 .append(", imageSource='").append(this.imageSource).append('\'')
+                .append(", recipes=").append(this.recipes)
                 .append('}');
 
         return builder.toString();
