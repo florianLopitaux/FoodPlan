@@ -2,11 +2,17 @@ package com.foodplan.api.dish.controller;
 
 import com.foodplan.api.dish.dto.DishCreateDTO;
 import com.foodplan.api.dish.dto.DishOutputDTO;
+import com.foodplan.api.dish.dto.RecipeCreateDTO;
+import com.foodplan.api.dish.dto.RecipeOutputDTO;
 import com.foodplan.api.dish.exception.DishAlreadyExistsException;
 import com.foodplan.api.dish.exception.DishNotFoundException;
+import com.foodplan.api.dish.exception.IngredientAlreadyPresentException;
 import com.foodplan.api.dish.mapper.DishMapper;
+import com.foodplan.api.dish.mapper.RecipeMapper;
 import com.foodplan.api.dish.model.DishEntity;
 import com.foodplan.api.dish.service.DishService;
+import com.foodplan.api.dish.service.RecipeService;
+import com.foodplan.api.ingredient.exception.IngredientNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +24,13 @@ import java.util.Set;
 public class DishController {
     // FIELDS
     private final DishService dishService;
+    private final RecipeService recipeService;
 
 
     // CONSTRUCTOR
-    public DishController(DishService dishService) {
+    public DishController(DishService dishService, RecipeService recipeService) {
         this.dishService = dishService;
+        this.recipeService = recipeService;
     }
 
 
@@ -51,6 +59,14 @@ public class DishController {
     @ResponseStatus(HttpStatus.CREATED)
     public DishOutputDTO createDish(@RequestBody DishCreateDTO dishCreateDTO) throws DishAlreadyExistsException {
         return DishMapper.toOutputDTO(this.dishService.createDish(dishCreateDTO));
+    }
+
+    @PostMapping("/{dishName}/ingredients")
+    @ResponseStatus(HttpStatus.CREATED)
+    public RecipeOutputDTO createRecipe(@PathVariable String dishName, @RequestBody RecipeCreateDTO recipeCreateDTO)
+            throws DishNotFoundException, IngredientNotFoundException, IngredientAlreadyPresentException {
+
+        return RecipeMapper.toOutputDTO(this.recipeService.addIngredient(dishName, recipeCreateDTO));
     }
 
 

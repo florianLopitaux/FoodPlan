@@ -7,6 +7,7 @@ import com.foodplan.api.ingredient.mapper.IngredientMapper;
 import com.foodplan.api.ingredient.model.IngredientEntity;
 import com.foodplan.api.ingredient.repository.IngredientRepository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -54,11 +55,13 @@ public class IngredientService {
         }
     }
 
+    @Transactional
     public IngredientEntity createIngredient(IngredientCreateDTO ingredientCreateDTO) throws IngredientAlreadyExistsException {
         final IngredientEntity ingredientEntity = IngredientMapper.toEntity(ingredientCreateDTO);
         return this.createIngredient(ingredientEntity);
     }
 
+    @Transactional
     public IngredientEntity createIngredient(IngredientEntity ingredientEntity) throws IngredientAlreadyExistsException {
         if (ingredientEntity == null) {
             throw new IllegalArgumentException("IngredientEntity parameter cannot be null");
@@ -73,6 +76,7 @@ public class IngredientService {
         return this.ingredientRepository.save(ingredientEntity);
     }
 
+    @Transactional
     public void deleteIngredient(Long id) throws IngredientNotFoundException {
         if (!this.ingredientRepository.existsById(id)) {
             throw new IngredientNotFoundException(id);
