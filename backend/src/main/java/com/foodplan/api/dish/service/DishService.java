@@ -7,6 +7,7 @@ import com.foodplan.api.dish.mapper.DishMapper;
 import com.foodplan.api.dish.model.DishEntity;
 import com.foodplan.api.dish.repository.DishRepository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -44,10 +45,12 @@ public class DishService {
         }
     }
 
+    @Transactional
     public DishEntity createDish(DishCreateDTO dishCreateDTO) throws DishAlreadyExistsException {
         return this.createDish(DishMapper.toEntity(dishCreateDTO));
     }
 
+    @Transactional
     public DishEntity createDish(DishEntity dish) throws DishAlreadyExistsException {
         if (dish == null) {
             throw new IllegalArgumentException("DishEntity parameter cannot be null");
@@ -60,6 +63,7 @@ public class DishService {
         return this.dishRepository.save(dish);
     }
 
+    @Transactional
     public void deleteDish(String dishName) throws DishNotFoundException {
         if (!this.dishRepository.existsById(dishName)) {
             throw new DishNotFoundException(dishName);

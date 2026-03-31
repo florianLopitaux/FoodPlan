@@ -111,14 +111,17 @@ public class DishEntity {
         return Collections.unmodifiableSet(this.recipes);
     }
 
-    public RecipeEntity addIngredient(IngredientEntity ingredient, int quantity, RecipeUnit unit) throws IngredientAlreadyPresentException {
-        final RecipeEntity recipe = new RecipeEntity(this, ingredient, quantity, unit);
-
+    public RecipeEntity addIngredient(RecipeEntity recipe) throws IngredientAlreadyPresentException {
         if (!recipes.add(recipe)) {
-            throw new IngredientAlreadyPresentException(this, ingredient);
+            throw new IngredientAlreadyPresentException(this, recipe.getIngredient());
         }
 
         return recipe;
+    }
+
+    public RecipeEntity addIngredient(IngredientEntity ingredient, int quantity, RecipeUnit unit) throws IngredientAlreadyPresentException {
+        final RecipeEntity recipe = new RecipeEntity(this, ingredient, quantity, unit);
+        return this.addIngredient(recipe);
     }
 
 
