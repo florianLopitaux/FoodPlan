@@ -40,9 +40,9 @@ public class IngredientController {
         return IngredientMapper.toOutputDTOs(entities);
     }
 
-    @GetMapping("/{idIngredient}")
-    public IngredientOutputDTO getIngredientById(@PathVariable Long idIngredient) throws IngredientNotFoundException {
-        return IngredientMapper.toOutputDTO(this.ingredientService.getIngredient(idIngredient));
+    @GetMapping("/{ingredientID}")
+    public IngredientOutputDTO getIngredientById(@PathVariable Long ingredientID) throws IngredientNotFoundException {
+        return IngredientMapper.toOutputDTO(this.ingredientService.getIngredient(ingredientID));
     }
 
     @GetMapping
@@ -60,9 +60,9 @@ public class IngredientController {
 
 
     // ENDPOINTS DELETE REQUESTS
-    @DeleteMapping("/{idIngredient}")
+    @DeleteMapping("/{ingredientID}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteIngredient(@PathVariable Long idIngredient) throws IngredientNotFoundException {
-        this.ingredientService.deleteIngredient(idIngredient);
+    public void deleteIngredient(@PathVariable Long ingredientID) throws IngredientNotFoundException {
+        this.ingredientService.deleteIngredient(ingredientID);
     }
 }

@@ -6,6 +6,9 @@ import com.foodplan.api.dish.model.DishEntity;
 import com.foodplan.api.dish.model.RecipeEntity;
 import com.foodplan.api.ingredient.model.IngredientEntity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class RecipeMapper {
 
     public static RecipeEntity toEntity(DishEntity dish, IngredientEntity ingredient, RecipeCreateDTO dto) {
@@ -27,4 +30,13 @@ public class RecipeMapper {
         );
     }
 
+    public static Set<RecipeOutputDTO> toOutputDTOs(Set<RecipeEntity> recipes) {
+        final Set<RecipeOutputDTO> dtos = new HashSet<>();
+
+        for (final RecipeEntity currentEntity : recipes) {
+            dtos.add(RecipeMapper.toOutputDTO(currentEntity));
+        }
+
+        return dtos;
+    }
 }

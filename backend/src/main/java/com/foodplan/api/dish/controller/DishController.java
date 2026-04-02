@@ -7,6 +7,7 @@ import com.foodplan.api.dish.dto.RecipeOutputDTO;
 import com.foodplan.api.dish.exception.DishAlreadyExistsException;
 import com.foodplan.api.dish.exception.DishNotFoundException;
 import com.foodplan.api.dish.exception.IngredientAlreadyPresentException;
+import com.foodplan.api.dish.exception.RecipeNotFoundException;
 import com.foodplan.api.dish.mapper.DishMapper;
 import com.foodplan.api.dish.mapper.RecipeMapper;
 import com.foodplan.api.dish.model.DishEntity;
@@ -53,6 +54,11 @@ public class DishController {
         return DishMapper.toOutputDTO(this.dishService.getDish(dishName));
     }
 
+    @GetMapping("/{dishName}/ingredients")
+    public Set<RecipeOutputDTO> getDishRecipes(@PathVariable String dishName) throws DishNotFoundException {
+        return RecipeMapper.toOutputDTOs(this.recipeService.getDishRecipes(dishName));
+    }
+
 
     // ENDPOINTS POST REQUESTS
     @PostMapping
@@ -71,9 +77,16 @@ public class DishController {
 
 
     // ENDPOINTS DELETE REQUESTS
-    @DeleteMapping
+    @DeleteMapping("/{dishName}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteDishById(@RequestParam String dishName) throws DishNotFoundException {
+    public void deleteDish(@PathVariable String dishName) throws DishNotFoundException {
+        this.recipeService.deleteDishAllRecipes(dishName);
         this.dishService.deleteDish(dishName);
+    }
+
+    @DeleteMapping("/{dishName}/ingredients/{ingredientID}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRecipe(@PathVariable String dishName, @PathVariable Long ingredientID) throws RecipeNotFoundException {
+        this.recipeService.deleteRecipe(dishName, ingredientID);
     }
 }
