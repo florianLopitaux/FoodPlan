@@ -1,14 +1,12 @@
 package com.foodplan.api.dish.model;
 
 import com.foodplan.api.dish.exception.IngredientAlreadyPresentException;
+import com.foodplan.api.ingredient.exception.IngredientNotFoundException;
 import com.foodplan.api.ingredient.model.IngredientEntity;
 
 import jakarta.persistence.*;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "dish")
@@ -111,7 +109,7 @@ public class DishEntity {
         return Collections.unmodifiableSet(this.recipes);
     }
 
-    public RecipeEntity addIngredient(RecipeEntity recipe) throws IngredientAlreadyPresentException {
+    public RecipeEntity addRecipeIngredient(RecipeEntity recipe) throws IngredientAlreadyPresentException {
         if (!recipes.add(recipe)) {
             throw new IngredientAlreadyPresentException(this, recipe.getIngredient());
         }
@@ -119,9 +117,31 @@ public class DishEntity {
         return recipe;
     }
 
-    public RecipeEntity addIngredient(IngredientEntity ingredient, int quantity, RecipeUnit unit) throws IngredientAlreadyPresentException {
+    public RecipeEntity addRecipeIngredient(IngredientEntity ingredient, int quantity, RecipeUnit unit) throws IngredientAlreadyPresentException {
         final RecipeEntity recipe = new RecipeEntity(this, ingredient, quantity, unit);
-        return this.addIngredient(recipe);
+        return this.addRecipeIngredient(recipe);
+    }
+
+    public boolean deleteRecipeIngredient(Long ingredientID) {
+        final Iterator<RecipeEntity> it = this.recipes.iterator();
+
+        while (it.hasNext()) {
+            final RecipeEntity recipe = it.next();
+            if (recipe.getIngredientId().equals(ingredientID)) {
+                it.remove();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean deleteRecipeIngredient(RecipeEntity recipe) {
+        return this.recipes.remove(recipe);
+    }
+
+    public void clearRecipes() {
+        this.recipes.clear();
     }
 
 
