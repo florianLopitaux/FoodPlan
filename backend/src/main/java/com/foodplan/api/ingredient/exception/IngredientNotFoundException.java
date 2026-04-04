@@ -11,5 +11,4 @@ public class IngredientNotFoundException extends AbstractNotFoundException {
     public IngredientNotFoundException(String ingredientName) {
         super("Ingredient doesn't find with this given name : " + ingredientName);
     }
-
 }

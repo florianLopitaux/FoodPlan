@@ -11,5 +11,4 @@ public class IngredientAlreadyExistsException extends AbstractAlreadyExistsExcep
     public IngredientAlreadyExistsException(String ingredientName) {
         super("Ingredient already exists with this given name: " + ingredientName);
     }
-
 }
