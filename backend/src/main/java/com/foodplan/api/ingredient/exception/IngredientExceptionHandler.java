@@ -9,21 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice(basePackages = "com.foodplan.api.ingredient")
+@ControllerAdvice
 public class IngredientExceptionHandler extends GlobalExceptionHandler {
 
-    @ExceptionHandler(IngredientNotFoundException.class)
-    public ResponseEntity<ApiError> handleNotFound(IngredientNotFoundException ex, HttpServletRequest request) {
-        return GlobalExceptionHandler.buildError(
-                HttpStatus.NOT_FOUND,
-                request.getRequestURI(),
-                ex.getClass().getSimpleName(),
-                ex.getMessage()
-        );
-    }
-
-    @ExceptionHandler(IngredientAlreadyExistsException.class)
-    public ResponseEntity<ApiError> handleAlreadyExists(IngredientAlreadyExistsException ex, HttpServletRequest request) {
+    @ExceptionHandler(IngredientAlreadyPresentException.class)
+    public ResponseEntity<ApiError> handleAlreadyPresent(IngredientAlreadyPresentException ex, HttpServletRequest request) {
         return GlobalExceptionHandler.buildError(
                 HttpStatus.BAD_REQUEST,
                 request.getRequestURI(),

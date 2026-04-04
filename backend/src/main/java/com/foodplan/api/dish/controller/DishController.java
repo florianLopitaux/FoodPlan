@@ -6,7 +6,7 @@ import com.foodplan.api.dish.dto.RecipeCreateDTO;
 import com.foodplan.api.dish.dto.RecipeOutputDTO;
 import com.foodplan.api.dish.exception.DishAlreadyExistsException;
 import com.foodplan.api.dish.exception.DishNotFoundException;
-import com.foodplan.api.dish.exception.IngredientAlreadyPresentException;
+import com.foodplan.api.ingredient.exception.IngredientAlreadyPresentException;
 import com.foodplan.api.dish.exception.RecipeNotFoundException;
 import com.foodplan.api.dish.mapper.DishMapper;
 import com.foodplan.api.dish.mapper.RecipeMapper;

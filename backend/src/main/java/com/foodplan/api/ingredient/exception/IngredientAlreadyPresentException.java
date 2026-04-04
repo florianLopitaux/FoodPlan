@@ -1,4 +1,4 @@
-package com.foodplan.api.dish.exception;
+package com.foodplan.api.ingredient.exception;
 
 import com.foodplan.api.dish.model.DishEntity;
 import com.foodplan.api.ingredient.model.IngredientEntity;
