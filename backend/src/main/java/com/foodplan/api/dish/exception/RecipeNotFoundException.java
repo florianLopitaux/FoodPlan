@@ -5,8 +5,8 @@ import com.foodplan.api.exception.AbstractNotFoundException;
 
 public class RecipeNotFoundException extends AbstractNotFoundException {
 
-    public RecipeNotFoundException(String dishName, Long ingredientID) {
-        super("Recipe not found with this id [dishName='" + dishName + "', ingredientID=" + ingredientID + "]");
+    public RecipeNotFoundException(String dishName, Long ingredientId) {
+        super("Recipe not found with this id [dishName='" + dishName + "', ingredientId=" + ingredientId + "]");
     }
 
     public RecipeNotFoundException(RecipeID recipeId) {

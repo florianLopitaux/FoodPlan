@@ -69,14 +69,16 @@ public class RecipeService {
     }
 
     @Transactional
-    public void deleteRecipe(String dishName, Long ingredientId) throws RecipeNotFoundException {
+    public void deleteRecipe(String dishName, Long ingredientId) throws DishNotFoundException, RecipeNotFoundException {
         final Optional<DishEntity> foundDish = this.dishRepository.findById(dishName);
 
         if (foundDish.isEmpty()) {
-            throw new RecipeNotFoundException(dishName, ingredientId);
+            throw new DishNotFoundException(dishName);
         }
 
-        foundDish.get().deleteRecipeIngredient(ingredientId);
+        if (!foundDish.get().deleteRecipeIngredient(ingredientId)) {
+            throw new RecipeNotFoundException(dishName, ingredientId);
+        }
         this.recipeRepository.deleteById(new RecipeID(dishName, ingredientId));
     }
 
@@ -88,7 +90,7 @@ public class RecipeService {
             throw new DishNotFoundException(dishName);
         }
 
-        foundDish.get().clearRecipes();
         this.recipeRepository.deleteAll(foundDish.get().getRecipes());
+        foundDish.get().clearRecipes();
     }
 }
