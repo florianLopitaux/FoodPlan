@@ -1,7 +1,6 @@
 package com.foodplan.api.dish.model;
 
-import com.foodplan.api.dish.exception.IngredientAlreadyPresentException;
-import com.foodplan.api.ingredient.exception.IngredientNotFoundException;
+import com.foodplan.api.ingredient.exception.IngredientAlreadyPresentException;
 import com.foodplan.api.ingredient.model.IngredientEntity;
 
 import jakarta.persistence.*;

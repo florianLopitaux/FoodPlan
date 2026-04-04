@@ -2,7 +2,7 @@ package com.foodplan.api.dish.service;
 
 import com.foodplan.api.dish.dto.RecipeCreateDTO;
 import com.foodplan.api.dish.exception.DishNotFoundException;
-import com.foodplan.api.dish.exception.IngredientAlreadyPresentException;
+import com.foodplan.api.ingredient.exception.IngredientAlreadyPresentException;
 import com.foodplan.api.dish.exception.RecipeNotFoundException;
 import com.foodplan.api.dish.mapper.RecipeMapper;
 import com.foodplan.api.dish.model.DishEntity;

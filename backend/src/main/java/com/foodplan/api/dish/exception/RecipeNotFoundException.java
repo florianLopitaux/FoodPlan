@@ -1,11 +1,12 @@
 package com.foodplan.api.dish.exception;
 
 import com.foodplan.api.dish.model.RecipeID;
+import com.foodplan.api.exception.AbstractNotFoundException;
 
-public class RecipeNotFoundException extends RuntimeException {
+public class RecipeNotFoundException extends AbstractNotFoundException {
 
     public RecipeNotFoundException(String dishName, Long ingredientID) {
-        super("Recipe not found with these id [dishName='" + dishName + "', ingredientID:'" + ingredientID + "']");
+        super("Recipe not found with this id [dishName='" + dishName + "', ingredientID=" + ingredientID + "]");
     }
 
     public RecipeNotFoundException(RecipeID recipeId) {

@@ -32,6 +32,26 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(AbstractNotFoundException.class)
+    public ResponseEntity<ApiError> handleNotFound(AbstractNotFoundException ex, HttpServletRequest request) {
+        return GlobalExceptionHandler.buildError(
+                HttpStatus.NOT_FOUND,
+                request.getRequestURI(),
+                ex.getClass().getSimpleName(),
+                ex.getMessage()
+        );
+    }
+
+    @ExceptionHandler(AbstractAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleAlreadyExists(AbstractAlreadyExistsException ex, HttpServletRequest request) {
+        return GlobalExceptionHandler.buildError(
+                HttpStatus.BAD_REQUEST,
+                request.getRequestURI(),
+                ex.getClass().getSimpleName(),
+                ex.getMessage()
+        );
+    }
+
 
     // Method to easily build error body to response with handler methods
     public static ResponseEntity<ApiError> buildError(HttpStatus status, String path, String exceptionName, String message) {

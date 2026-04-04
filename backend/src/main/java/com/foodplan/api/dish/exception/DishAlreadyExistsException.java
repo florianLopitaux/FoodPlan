@@ -1,6 +1,8 @@
 package com.foodplan.api.dish.exception;
 
-public class DishAlreadyExistsException extends RuntimeException {
+import com.foodplan.api.exception.AbstractAlreadyExistsException;
+
+public class DishAlreadyExistsException extends AbstractAlreadyExistsException {
 
     public DishAlreadyExistsException(String dishName) {
         super("Dish already exists with this given name: " + dishName);

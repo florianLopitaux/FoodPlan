@@ -1,6 +1,8 @@
 package com.foodplan.api.ingredient.exception;
 
-public class IngredientNotFoundException extends RuntimeException {
+import com.foodplan.api.exception.AbstractNotFoundException;
+
+public class IngredientNotFoundException extends AbstractNotFoundException {
 
     public IngredientNotFoundException(Long ingredientId) {
         super("Ingredient doesn't find with this given id : " + ingredientId);
