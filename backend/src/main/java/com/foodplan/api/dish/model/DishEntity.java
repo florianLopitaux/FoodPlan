@@ -3,6 +3,7 @@ package com.foodplan.api.dish.model;
 import com.foodplan.api.ingredient.exception.IngredientAlreadyPresentException;
 import com.foodplan.api.ingredient.model.IngredientEntity;
 
+import com.foodplan.api.weekly_menu.model.MealPlanEntity;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -33,12 +34,16 @@ public class DishEntity {
     @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<RecipeEntity> recipes;
 
+    @OneToMany(mappedBy = "dish")
+    private final Set<MealPlanEntity> mealPlans;
+
 
     // CONSTRUCTORS
     public DishEntity() {
         this.minimum = DishEntity.DEFAULT_MIN_AMOUNT_PER_WEEK;
         this.maximum = DishEntity.DEFAULT_MAX_AMOUNT_PER_WEEK;
         this.recipes = new HashSet<>();
+        this.mealPlans = new HashSet<>();
     }
 
     public DishEntity(String name, String description, Byte minimum, Byte maximum, String imageSource) {
@@ -143,6 +148,10 @@ public class DishEntity {
         this.recipes.clear();
     }
 
+    public Set<MealPlanEntity> getMealPlans() {
+        return Collections.unmodifiableSet(this.mealPlans);
+    }
+
 
     // OVERRIDE METHODS FROM Object CLASS
     @Override
@@ -155,6 +164,7 @@ public class DishEntity {
                 .append(", maximum=").append(this.maximum)
                 .append(", imageSource='").append(this.imageSource).append('\'')
                 .append(", recipes=").append(this.recipes)
+                .append(", mealPlans=").append(this.mealPlans)
                 .append('}');
 
         return builder.toString();
