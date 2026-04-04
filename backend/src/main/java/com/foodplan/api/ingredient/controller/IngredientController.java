@@ -8,6 +8,7 @@ import com.foodplan.api.ingredient.mapper.IngredientMapper;
 import com.foodplan.api.ingredient.model.IngredientEntity;
 import com.foodplan.api.ingredient.service.IngredientService;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,29 +41,29 @@ public class IngredientController {
         return IngredientMapper.toOutputDTOs(entities);
     }
 
-    @GetMapping("/{ingredientID}")
-    public IngredientOutputDTO getIngredientById(@PathVariable Long ingredientID) throws IngredientNotFoundException {
-        return IngredientMapper.toOutputDTO(this.ingredientService.getIngredient(ingredientID));
-    }
-
     @GetMapping
     public IngredientOutputDTO getIngredientByName(@RequestParam String name) throws IngredientNotFoundException {
         return IngredientMapper.toOutputDTO(this.ingredientService.getIngredient(name));
+    }
+
+    @GetMapping("/{ingredientId}")
+    public IngredientOutputDTO getIngredientById(@PathVariable Long ingredientId) throws IngredientNotFoundException {
+        return IngredientMapper.toOutputDTO(this.ingredientService.getIngredient(ingredientId));
     }
 
 
     // ENDPOINTS POST REQUESTS
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public IngredientOutputDTO createIngredient(@RequestBody IngredientCreateDTO dto) throws IngredientAlreadyExistsException {
+    public IngredientOutputDTO createIngredient(@Valid @RequestBody IngredientCreateDTO dto) throws IngredientAlreadyExistsException {
         return IngredientMapper.toOutputDTO(this.ingredientService.createIngredient(dto));
     }
 
 
     // ENDPOINTS DELETE REQUESTS
-    @DeleteMapping("/{ingredientID}")
+    @DeleteMapping("/{ingredientId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteIngredient(@PathVariable Long ingredientID) throws IngredientNotFoundException {
-        this.ingredientService.deleteIngredient(ingredientID);
+    public void deleteIngredient(@Valid @PathVariable Long ingredientId) throws IngredientNotFoundException {
+        this.ingredientService.deleteIngredient(ingredientId);
     }
 }

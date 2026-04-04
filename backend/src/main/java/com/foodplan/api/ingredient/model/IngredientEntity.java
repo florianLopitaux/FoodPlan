@@ -28,7 +28,7 @@ public class IngredientEntity {
 
     private String imageSource;
 
-    @OneToMany(mappedBy = "ingredient")
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<RecipeEntity> recipes;
 
 

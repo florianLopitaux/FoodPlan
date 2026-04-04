@@ -17,6 +17,7 @@ public class IngredientMapper {
 
         final IngredientEntity entity = new IngredientEntity();
         entity.setName(dto.name());
+        entity.setDescription(dto.description());
         entity.setImageSource(dto.imageSource());
 
         return entity;
