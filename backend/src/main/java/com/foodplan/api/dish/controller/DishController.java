@@ -15,6 +15,7 @@ import com.foodplan.api.dish.service.DishService;
 import com.foodplan.api.dish.service.RecipeService;
 import com.foodplan.api.ingredient.exception.IngredientNotFoundException;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +51,7 @@ public class DishController {
     }
 
     @GetMapping("/{dishName}")
-    public DishOutputDTO getDishById(@PathVariable String dishName) throws DishNotFoundException {
+    public DishOutputDTO getDishByName(@PathVariable String dishName) throws DishNotFoundException {
         return DishMapper.toOutputDTO(this.dishService.getDish(dishName));
     }
 
@@ -63,13 +64,13 @@ public class DishController {
     // ENDPOINTS POST REQUESTS
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DishOutputDTO createDish(@RequestBody DishCreateDTO dishCreateDTO) throws DishAlreadyExistsException {
+    public DishOutputDTO createDish(@Valid @RequestBody DishCreateDTO dishCreateDTO) throws DishAlreadyExistsException {
         return DishMapper.toOutputDTO(this.dishService.createDish(dishCreateDTO));
     }
 
     @PostMapping("/{dishName}/ingredients")
     @ResponseStatus(HttpStatus.CREATED)
-    public RecipeOutputDTO createRecipe(@PathVariable String dishName, @RequestBody RecipeCreateDTO recipeCreateDTO)
+    public RecipeOutputDTO createRecipe(@PathVariable String dishName, @Valid @RequestBody RecipeCreateDTO recipeCreateDTO)
             throws DishNotFoundException, IngredientNotFoundException, IngredientAlreadyPresentException {
 
         return RecipeMapper.toOutputDTO(this.recipeService.addIngredient(dishName, recipeCreateDTO));
@@ -84,9 +85,9 @@ public class DishController {
         this.dishService.deleteDish(dishName);
     }
 
-    @DeleteMapping("/{dishName}/ingredients/{ingredientID}")
+    @DeleteMapping("/{dishName}/ingredients/{ingredientId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRecipe(@PathVariable String dishName, @PathVariable Long ingredientID) throws RecipeNotFoundException {
-        this.recipeService.deleteRecipe(dishName, ingredientID);
+    public void deleteRecipe(@PathVariable String dishName, @PathVariable Long ingredientId) throws RecipeNotFoundException {
+        this.recipeService.deleteRecipe(dishName, ingredientId);
     }
 }

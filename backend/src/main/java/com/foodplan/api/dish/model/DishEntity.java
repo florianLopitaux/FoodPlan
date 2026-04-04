@@ -30,7 +30,7 @@ public class DishEntity {
 
     private String imageSource;
 
-    @OneToMany(mappedBy = "dish")
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<RecipeEntity> recipes;
 
 
@@ -47,10 +47,10 @@ public class DishEntity {
         if (name != null && name.length() <= DishEntity.NAME_MAX_LENGTH) {
             this.name = name;
         } else {
-            throw  new IllegalArgumentException("name is null or has too many characters, maximum = " + DishEntity.NAME_MAX_LENGTH);
+            throw new IllegalArgumentException("name is null or has too many characters, maximum : " + DishEntity.NAME_MAX_LENGTH);
         }
 
-        this.description = description;
+        this.setDescription(description);
         this.imageSource = imageSource;
 
         if (minimum != null) {
@@ -121,12 +121,12 @@ public class DishEntity {
         return this.addRecipeIngredient(recipe);
     }
 
-    public boolean deleteRecipeIngredient(Long ingredientID) {
+    public boolean deleteRecipeIngredient(Long ingredientId) {
         final Iterator<RecipeEntity> it = this.recipes.iterator();
 
         while (it.hasNext()) {
             final RecipeEntity recipe = it.next();
-            if (recipe.getIngredientId().equals(ingredientID)) {
+            if (recipe.getIngredientId().equals(ingredientId)) {
                 it.remove();
                 return true;
             }
