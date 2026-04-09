@@ -4,6 +4,7 @@ import com.foodplan.api.dish.model.DishEntity;
 
 import jakarta.persistence.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class MealPlanEntity {
     // CONSTRUCTORS
     public MealPlanEntity() {}
 
-    public MealPlanEntity(WeeklyMenuEntity weeklyMenu, DishEntity dish, LocalDate weekDate, MealTime mealTime) {
+    public MealPlanEntity(WeeklyMenuEntity weeklyMenu, DishEntity dish, DayOfWeek weekDate, MealTime mealTime) {
         this.mealPlanID = new MealPlanID(weeklyMenu.getId(), dish.getName(), weekDate, mealTime);
         this.weeklyMenu = weeklyMenu;
         this.dish = dish;
@@ -56,7 +57,7 @@ public class MealPlanEntity {
         return this.dish.getName();
     }
 
-    public LocalDate getWeekDay() {
+    public DayOfWeek getWeekDay() {
         return this.mealPlanID.getWeekDay();
     }
 

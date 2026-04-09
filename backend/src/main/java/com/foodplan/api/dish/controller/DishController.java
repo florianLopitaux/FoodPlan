@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping(("/dishes"))
+@RequestMapping("/dishes")
 public class DishController {
     // FIELDS
     private final DishService dishService;

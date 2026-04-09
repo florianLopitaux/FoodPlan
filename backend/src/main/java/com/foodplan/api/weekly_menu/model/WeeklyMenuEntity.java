@@ -1,17 +1,15 @@
 package com.foodplan.api.weekly_menu.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "weekly_menu")
-public class WeeklyMenuEntity {
+public class WeeklyMenuEntity implements Comparable<WeeklyMenuEntity> {
     // FIELDS
     public static final int NAME_MAX_LENGTH = 100;
     public static final int DESCRIPTION_MAX_LENGTH = 255;
@@ -87,6 +85,23 @@ public class WeeklyMenuEntity {
 
     public List<MealPlanEntity> getMealPlans() {
         return Collections.unmodifiableList(this.mealPlans);
+    }
+
+
+    // OVERRIDE METHODS FROM Comparable INTERFACE
+    @Override
+    public int compareTo(@NotNull WeeklyMenuEntity other) {
+        if (this.getWeekStartDate() == null && other.getWeekStartDate() == null) {
+            return 0;
+
+        } else if (this.getWeekStartDate() == null) {
+            return -1; // switch -1/+1 return values to have null at the end of the List
+        } else if (other.getWeekStartDate() == null) {
+            return 1;
+        }
+
+        // sort by descending to have recent weekly menus first
+        return other.getWeekStartDate().compareTo(this.getWeekStartDate());
     }
 
 
