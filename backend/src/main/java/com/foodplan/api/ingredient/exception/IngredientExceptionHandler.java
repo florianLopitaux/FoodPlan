@@ -14,11 +14,6 @@ public class IngredientExceptionHandler extends GlobalExceptionHandler {
 
     @ExceptionHandler(IngredientAlreadyPresentException.class)
     public ResponseEntity<ApiError> handleAlreadyPresent(IngredientAlreadyPresentException ex, HttpServletRequest request) {
-        return GlobalExceptionHandler.buildError(
-                HttpStatus.BAD_REQUEST,
-                request.getRequestURI(),
-                ex.getClass().getSimpleName(),
-                ex.getMessage()
-        );
+        return GlobalExceptionHandler.buildError(HttpStatus.BAD_REQUEST, request.getRequestURI(), ex);
     }
 }

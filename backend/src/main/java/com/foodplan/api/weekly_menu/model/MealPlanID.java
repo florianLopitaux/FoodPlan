@@ -3,7 +3,7 @@ package com.foodplan.api.weekly_menu.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.util.Objects;
 
 @Embeddable
@@ -16,7 +16,7 @@ public class MealPlanID {
     private String dishName;
 
     @Column(nullable = false)
-    private LocalDate weekDay;
+    private DayOfWeek weekDay;
 
     @Column(nullable = false)
     private MealTime mealTime;
@@ -25,7 +25,7 @@ public class MealPlanID {
     // CONSTRUCTORS
     public MealPlanID() {}
 
-    public MealPlanID(Long weeklyMenuId, String dishName, LocalDate weekDay, MealTime mealTime) {
+    public MealPlanID(Long weeklyMenuId, String dishName, DayOfWeek weekDay, MealTime mealTime) {
         this.weeklyMenuId = weeklyMenuId;
         this.dishName = dishName;
         this.weekDay = weekDay;
@@ -50,11 +50,11 @@ public class MealPlanID {
         this.dishName = dishName;
     }
 
-    public LocalDate getWeekDay() {
+    public DayOfWeek getWeekDay() {
         return this.weekDay;
     }
 
-    public void setWeekDay(LocalDate weekDay) {
+    public void setWeekDay(DayOfWeek weekDay) {
         this.weekDay = weekDay;
     }
 
