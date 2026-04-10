@@ -1,10 +1,14 @@
 package com.foodplan.api.weekly_menu.controller;
 
+import com.foodplan.api.weekly_menu.dto.WeeklyMenuCreateDTO;
 import com.foodplan.api.weekly_menu.dto.WeeklyMenuOutputDTO;
+import com.foodplan.api.weekly_menu.exception.WeeklyMenuAlreadyExistsException;
 import com.foodplan.api.weekly_menu.exception.WeeklyMenuNotFoundException;
 import com.foodplan.api.weekly_menu.mapper.WeeklyMenuMapper;
 import com.foodplan.api.weekly_menu.service.WeeklyMenuService;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +26,7 @@ public class WeeklyMenuController {
     }
 
 
-    // ENDPOINT METHODS
+    // ENDPOINT GET REQUESTS
     @GetMapping
     public List<WeeklyMenuOutputDTO> getAllWeeklyMenus() {
         return WeeklyMenuMapper.toOutputDTOs(weeklyMenuService.getAllWeeklyMenus());
@@ -38,7 +42,18 @@ public class WeeklyMenuController {
         return WeeklyMenuMapper.toOutputDTO(this.weeklyMenuService.getWeeklyMenuByName(weeklyMenuName));
     }
 
+
+    // ENDPOINTS POST REQUESTS
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public WeeklyMenuOutputDTO createWeeklyMenu(@Valid WeeklyMenuCreateDTO weeklyMenuCreateDTO) throws WeeklyMenuAlreadyExistsException {
+        return WeeklyMenuMapper.toOutputDTO(this.weeklyMenuService.createWeeklyMenu(weeklyMenuCreateDTO));
+    }
+
+
+    // ENDPOINTS DELETE REQUESTS
     @DeleteMapping("{weeklyMenuId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteWeeklyMenu(@PathVariable Long weeklyMenuId) throws WeeklyMenuNotFoundException {
         this.weeklyMenuService.deleteWeeklyMenu(weeklyMenuId);
     }
