@@ -1,0 +1,9 @@
+main {
+    section {
+        padding: 5rem 5%;
+    }
+
+    section:nth-child(odd) {
+        background-color: var(--color-bg-light);
+    }
+}

@@ -1,0 +1,61 @@
+// ------------------------------------
+// Import package
+// ------------------------------------
+
+@use 'abstract';
+
+// ------------------------------------
+// Hero Section style
+// ------------------------------------
+
+:host {
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+}
+
+div.left-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+
+    h1 {
+        font-size: 2.75rem;
+        line-height: 1.2;
+
+        .primary {
+            color: var(--color-primary);
+        }
+    }
+
+    p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--color-text-muted);
+    }
+
+    button {
+        margin-top: 2rem;
+        flex-wrap: 1;
+    }
+}
+
+figure.app-preview {
+    flex: 0 0 45%;
+    padding: 1rem;
+
+    background-color: white;
+    border-radius: abstract.$ratio-medium-radius;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}

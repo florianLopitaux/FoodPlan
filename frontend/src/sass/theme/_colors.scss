@@ -1,13 +1,19 @@
+@use 'sass:color';
+
 // ------------------------------------
 // Color Variables
 // ------------------------------------
 
 :root {
     --color-primary: #2d6a4f;
+    --color-primary-dark: #{color.adjust(#2d6a4f, $lightness: -10%)};
     --color-primary-light: #52b788;
     --color-accent: #e07a5f;
+    --color-accent-light: #{color.adjust(#e07a5f, $lightness: 30%)};
+    --color-accent-dark: #{color.adjust(#e07a5f, $lightness: -10%)};
     --color-bg-light: #f8f9fa;
     --color-bg-card: white;
     --color-text-dark: #1d3557;
     --color-text-muted: #6c757d;
+    --color-text-muted-light: #{color.adjust(#6c757d, $lightness: 20%)};
 }
