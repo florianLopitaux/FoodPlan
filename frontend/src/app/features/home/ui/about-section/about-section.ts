@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-about-section',
+  selector: 'section[app-about-section]',
   imports: [],
   templateUrl: './about-section.html',
   styleUrl: './about-section.scss',
