@@ -2,7 +2,7 @@
 // Header style
 // ------------------------------------
 
-header {
+:host {
     position: relative;
 
     display: flex;
@@ -11,17 +11,17 @@ header {
     padding: 1.25rem 5%;
     
     box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-}
 
-a.title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    a.title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
 
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--color-primary);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--color-primary);
+    }
 }
 
 nav.navbar {
