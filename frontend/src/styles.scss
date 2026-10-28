@@ -10,30 +10,6 @@
 @use 'sass/abstract';
 
 // ------------------------------------
-// Badges style
-// ------------------------------------
-
-.badge {
-    padding: 0.4rem 0.8rem;
-    max-width: fit-content;
-
-    list-style: none;
-    background-color: var(--color-primary);
-    border-radius: abstract.$ratio-large-radius;
-
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: white;
-
-    &--accent {
-        @extend .badge;
-
-        background-color: var(--color-accent-light);
-        color: var(--color-accent-dark);
-    }
-}
-
-// ------------------------------------
 // Cards style
 // ------------------------------------
 
