@@ -11,7 +11,7 @@ import { Component, input, ViewEncapsulation } from '@angular/core';
   }
 })
 export class Button {
-  styleType = input<string, 'normal' | 'transparent' | 'large'>('normal', {
+  styleType = input<string, 'normal' | 'transparent' | 'large'>('btn-primary', {
     alias: 'style-type',
     transform: (value: string) => {
       switch (value) {

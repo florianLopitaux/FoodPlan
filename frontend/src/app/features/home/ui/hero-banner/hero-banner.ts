@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { Button } from '../../../../shared/button/button';
-import { Badge } from '../../../../shared/badge/badge';
+
+import { Button } from '@shared/button';
+import { Badge } from '@shared/badge';
 
 @Component({
   selector: 'section[app-hero-banner]',

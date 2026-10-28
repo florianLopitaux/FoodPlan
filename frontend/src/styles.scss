@@ -2,34 +2,3 @@
 @use 'sass/theme/fonts';
 
 @use 'sass/base/global';
-
-
-
-/* TEMP (move to component) */
-
-@use 'sass/abstract';
-
-// ------------------------------------
-// Cards style
-// ------------------------------------
-
-.card {
-    padding: 2rem;
-
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-
-    list-style: none;
-    background-color: var(--color-bg-light);
-    border-radius: abstract.$ratio-small-radius;
-
-    .card-icon {
-        font-size: 2rem;
-    }
-
-    .card-text {
-        line-height: 1.5;
-        color: var(--color-text-muted);
-    }
-}

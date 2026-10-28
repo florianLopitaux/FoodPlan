@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Badge } from '../../../../shared/badge/badge';
+
+import { Badge } from '@shared/badge';
 
 @Component({
   selector: 'section[app-about-section]',

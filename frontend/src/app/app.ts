@@ -1,7 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { Header } from "./shared/header/header";
-import { Footer } from "./shared/footer/footer";
-import { Home } from './features/home/pages/home/home';
+
+import { Header } from "@shared/header/header";
+import { Footer } from "@shared/footer/footer";
+import { Home } from '@features/home/pages/home';
 
 @Component({
   selector: 'app-root',

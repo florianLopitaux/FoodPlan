@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { HeroBanner } from "../../ui/hero-banner/hero-banner";
-import { FeaturesSection } from "../../ui/features-section/features-section";
-import { AboutSection } from "../../ui/about-section/about-section";
+
+import { HeroBanner } from "@features/home/ui/hero-banner";
+import { FeaturesSection } from "@features/home/ui/features-section";
+import { AboutSection } from "@features/home/ui/about-section";
 
 @Component({
   selector: 'main[app-page-home]',
